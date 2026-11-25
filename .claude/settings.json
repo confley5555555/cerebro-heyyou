@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Read(~/Documents/**)",
+      "Read(~/Documentos/**)",
+      "Read(~/Desktop/**)",
+      "Read(~/Escritorio/**)",
+      "Read(~/Downloads/**)",
+      "Read(~/Descargas/**)",
+      "Read(~/Pictures/**)",
+      "Read(~/Imágenes/**)",
+      "Read(~/Videos/**)",
+      "Read(~/Movies/**)",
+      "Read(~/OneDrive*/**)",
+      "Read(~/Google Drive/**)",
+      "Read(~/Mi unidad/**)",
+      "Read(~/My Drive/**)",
+      "Read(~/Dropbox*/**)",
+      "Read(~/iCloud Drive/**)",
+      "Read(~/Box/**)",
+      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -File sistema/herramientas/*)",
+      "PowerShell(powershell.exe -NoProfile -ExecutionPolicy Bypass -File sistema/herramientas/*)",
+      "Bash(bash sistema/herramientas/*)",
+      "PowerShell(Get-ChildItem *)",
+      "Bash(find *)",
+      "WebSearch",
+      "WebFetch",
+      "Write(**/_privado/**)",
+      "Write(**/_Privado/**)",
+      "Write(**/_PRIVADO/**)"
+    ],
+    "deny": [
+      "Bash(find * -delete*)",
+      "Bash(find * -exec*)",
+      "Bash(find * -execdir*)",
+      "Bash(find * -ok*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.env)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*contrase*)",
+      "Read(**/*Contrase*)",
+      "Read(**/*CONTRASE*)",
+      "Read(**/*claves*)",
+      "Read(**/*Claves*)",
+      "Read(**/*CLAVES*)",
+      "Read(**/*credencial*)",
+      "Read(**/*Credencial*)",
+      "Read(**/*CREDENCIAL*)",
+      "Read(**/*credential*)",
+      "Read(**/*Credential*)",
+      "Read(**/*CREDENTIAL*)",
+      "Read(**/*password*)",
+      "Read(**/*Password*)",
+      "Read(**/*PASSWORD*)",
+      "Read(~/**/.env)",
+      "Read(~/**/.env.*)",
+      "Read(~/**/*.env)",
+      "Read(~/**/*.pem)",
+      "Read(~/**/*.key)",
+      "Read(~/**/*contrase*)",
+      "Read(~/**/*Contrase*)",
+      "Read(~/**/*CONTRASE*)",
+      "Read(~/**/*claves*)",
+      "Read(~/**/*Claves*)",
+      "Read(~/**/*CLAVES*)",
+      "Read(~/**/*credencial*)",
+      "Read(~/**/*Credencial*)",
+      "Read(~/**/*CREDENCIAL*)",
+      "Read(~/**/*credential*)",
+      "Read(~/**/*Credential*)",
+      "Read(~/**/*CREDENTIAL*)",
+      "Read(~/**/*password*)",
+      "Read(~/**/*Password*)",
+      "Read(~/**/*PASSWORD*)",
+      "Read(**/*.p12)",
+      "Read(**/*.pfx)",
+      "Read(**/*.ppk)",
+      "Read(**/*.kdbx)",
+      "Read(**/*.1pux)",
+      "Read(**/id_rsa*)",
+      "Read(**/*token*)",
+      "Read(**/*Token*)",
+      "Read(**/*TOKEN*)",
+      "Read(**/*secret*)",
+      "Read(**/*Secret*)",
+      "Read(**/*SECRET*)",
+      "Read(**/*llave*)",
+      "Read(**/*Llave*)",
+      "Read(**/*LLAVE*)",
+      "Read(**/*llaves*)",
+      "Read(**/*Llaves*)",
+      "Read(**/*LLAVES*)",
+      "Read(~/**/*.p12)",
+      "Read(~/**/*.pfx)",
+      "Read(~/**/*.ppk)",
+      "Read(~/**/*.kdbx)",
+      "Read(~/**/*.1pux)",
+      "Read(~/**/id_rsa*)",
+      "Read(~/**/*token*)",
+      "Read(~/**/*Token*)",
+      "Read(~/**/*TOKEN*)",
+      "Read(~/**/*secret*)",
+      "Read(~/**/*Secret*)",
+      "Read(~/**/*SECRET*)",
+      "Read(~/**/*llave*)",
+      "Read(~/**/*Llave*)",
+      "Read(~/**/*LLAVE*)",
+      "Read(~/**/*llaves*)",
+      "Read(~/**/*Llaves*)",
+      "Read(~/**/*LLAVES*)",
+      "Read(**/sistema/accesos/.caja*)",
+      "Edit(**/sistema/accesos/.caja*)",
+      "Read(~/.claude/projects/**)",
+      "Read(~/.codex/sessions/**)"
+    ],
+    "ask": [
+      "Edit(/AGENTS.md)",
+      "Edit(/CLAUDE.md)",
+      "Edit(/sistema/rutinas/**)",
+      "Edit(/.claude/**)",
+      "Edit(/.agents/**)",
+      "Edit(/.codex/**)",
+      "Read(**/_privado/**)",
+      "Read(**/_Privado/**)",
+      "Read(**/_PRIVADO/**)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\"; sh sistema/alarmas/sincronizar.sh bajar",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\"; sh sistema/alarmas/al-recibir.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\"; sh sistema/alarmas/sincronizar.sh bajar",
+            "timeout": 25
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\"; sh sistema/alarmas/antes-de-escribir.sh",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\"; sh sistema/alarmas/antes-de-la-consola.sh",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Grep|Glob|Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\"; sh sistema/alarmas/antes-de-leer.sh",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\"; sh sistema/alarmas/sincronizar.sh subir",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\"; sh sistema/alarmas/al-terminar.sh",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\"; sh sistema/alarmas/sincronizar.sh subir ya",
+            "timeout": 90
+          }
+        ]
+      }
+    ]
+  }
+}

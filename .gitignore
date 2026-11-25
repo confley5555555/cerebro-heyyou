@@ -1,0 +1,95 @@
+# Archivos que nunca se suben a GitHub: claves, contraseñas y originales sin revisar.
+# Va en línea con sistema/clasificacion.md y con la lista de bloqueos de .claude/settings.json.
+
+# --- La caja de esta compu (llave de servicio de 1Password, cifrada) ---
+sistema/accesos/.caja*
+
+# --- Archivos de claves ---
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.p12
+*.pfx
+*.ppk
+*.kdbx
+*.1pux
+id_rsa*
+id_ed25519*
+*.cer
+*.sat
+
+# --- Exportes de gestores de contraseñas ---
+passwords*.csv
+*Chrome Passwords*
+*bitwarden_export*
+*1password*export*
+
+# --- Cualquier nombre que hable de claves ---
+*[Cc]ontrase*
+*CONTRASE*
+*[Pp]assword*
+*PASSWORD*
+*[Cc]laves*
+*CLAVES*
+*[Cc]redencial*
+*CREDENCIAL*
+*[Cc]redential*
+*CREDENTIAL*
+*[Tt]oken*
+*TOKEN*
+*[Ss]ecret*
+*SECRET*
+*[Ll]lave*
+*LLAVE*
+*e.firma*
+*efirma*
+
+# --- Archivos de paso del agente (CSV de un Excel, el archivo de referencias del mesero, etc.) ---
+entrada/_paso/
+entrada/conversaciones/
+
+# --- Lo que el dueño suelta sin revisar, y los originales ya leídos ---
+# El conocimiento ya ordenado (conocimiento/) sí se sube; los documentos crudos se quedan en la compu.
+entrada/*
+!entrada/_leeme.md
+!entrada/por-clasificar/
+entrada/por-clasificar/*
+!entrada/por-clasificar/_leeme.md
+fuentes/*
+!fuentes/_registro.md
+
+# --- Ajustes locales de cada compu ---
+.claude/settings.local.json
+.codex/*.local.*
+
+# --- Basura del sistema ---
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+
+# --- Lo que el cerebro usa solo en esta compu (sincronizar y la voz del dueño) ---
+# La voz promete que lo que escribe el dueño se queda en esta compu; la sincronización no lo sube.
+sistema/alarmas/sincronizar.log
+sistema/alarmas/.traidos
+sistema/estilo/muestras.jsonl
+sistema/estilo/en-proceso.jsonl
+sistema/estilo/vistas.jsonl
+sistema/estilo/historial/
+sistema/estilo/destilado.log
+sistema/estilo/.avisada-*
+sistema/estilo/.destilando/
+sistema/estilo/.ultimo-destilado
+sistema/estilo/.tmp-*
+
+# --- Carpetas privadas del dueño: cualquier carpeta llamada _privado, a cualquier nivel ---
+# Nada de lo que hay dentro se sube; solo su _leeme.md, para que se sepa qué es.
+# (Se ignora el contenido con /*, no la carpeta, porque git no deja volver a incluir un archivo de una carpeta ignorada.)
+# (Sin distinguir mayúsculas: _Privado y _PRIVADO también quedan fuera.)
+**/_[Pp][Rr][Ii][Vv][Aa][Dd][Oo]/*
+!**/_[Pp][Rr][Ii][Vv][Aa][Dd][Oo]/_leeme.md
+
+# --- Lo que se instala solo, dentro de los servidores MCP del cerebro ---
+sistema/mcp/**/node_modules/
